@@ -58,6 +58,14 @@
             z-index: 100;
             border-bottom: 2px solid var(--border-color);
             box-shadow: var(--shadow);
+            gap: 1.5rem;
+        }
+
+        .app-title-container {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-grow: 1;
         }
 
         .app-title {
@@ -69,6 +77,7 @@
             color: transparent;
             cursor: pointer;
             transition: var(--transition);
+            white-space: nowrap;
         }
 
         .app-title:hover {
@@ -79,20 +88,23 @@
             display: flex;
             align-items: center;
             gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
         }
 
         .search-container {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            margin-right: 1rem;
+            min-width: 250px;
+            flex-grow: 1;
         }
 
         .search-input {
             padding: 0.5rem;
             border-radius: 5px;
             border: 1px solid var(--border-color);
-            min-width: 200px;
+            width: 100%;
         }
 
         .dark-mode .search-input {
@@ -104,7 +116,7 @@
         .clock {
             color: var(--text-light);
             font-size: 1.2rem;
-            margin-right: 1rem;
+            white-space: nowrap;
         }
 
         .button {
@@ -119,6 +131,7 @@
             gap: 0.5rem;
             transition: var(--transition);
             box-shadow: var(--shadow);
+            white-space: nowrap;
         }
 
         .button:hover {
@@ -578,6 +591,7 @@
             margin: 0 auto;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            object-fit: contain;
         }
 
         .close-periodic {
@@ -762,10 +776,26 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .calendar-event-delete {
+            background: none;
+            border: none;
+            color: #831843;
+            cursor: pointer;
+            font-size: 0.7rem;
+            padding: 0;
         }
 
         .dark-mode .calendar-event {
             background-color: #831843;
+            color: #f9a8d4;
+        }
+
+        .dark-mode .calendar-event-delete {
             color: #f9a8d4;
         }
 
@@ -793,6 +823,19 @@
             margin-top: 1rem;
         }
 
+        /* Custom Image Styles */
+        .custom-image-container {
+            margin-top: 1rem;
+        }
+
+        .custom-image-preview {
+            max-width: 100%;
+            max-height: 200px;
+            margin-top: 0.5rem;
+            display: none;
+            border-radius: 5px;
+        }
+
         @media (max-width: 768px) {
             .main-content {
                 padding: 1rem;
@@ -801,6 +844,7 @@
             .app-header {
                 padding: 1rem;
                 flex-wrap: wrap;
+                gap: 1rem;
             }
             
             .header-controls {
@@ -837,17 +881,18 @@
 </head>
 <body>
     <div class="app-header">
-        <h1 class="app-title">FocusVerse</h1>
-        <div class="header-controls">
+        <div class="app-title-container">
+            <h1 class="app-title">FocusVerse</h1>
             <div class="clock" id="clock">00:00:00</div>
+        </div>
+        <div class="header-controls">
             <div class="search-container">
                 <input type="text" id="task-search" placeholder="Search tasks..." class="search-input">
                 <button id="collapse-all" class="small-button">Collapse All</button>
             </div>
-            <button class="button" id="calendar-btn">📅</button>
-            <button class="button" id="planner-btn">📝</button>
-            <button class="button" id="settings-btn">⚙️</button>
-            <button class="button" id="add-task-btn">+</button>
+            <button class="button" id="calendar-btn">📅 Calendar</button>
+            <button class="button" id="settings-btn">⚙️ Settings</button>
+            <button class="button" id="add-task-btn">+ Add Task</button>
         </div>
     </div>
 
@@ -886,29 +931,13 @@
         </div>
     </div>
 
-    <!-- Day Planner Modal -->
-    <div class="modal-overlay" id="planner-modal">
-        <div class="modal">
-            <button class="modal-close" id="close-planner">&times;</button>
-            <h2 class="modal-title">Day Planner</h2>
-            <div class="form-group">
-                <label class="form-label" for="planner-notes">Today's Notes</label>
-                <textarea class="form-textarea" id="planner-notes" placeholder="Write your daily notes here..."></textarea>
-            </div>
-            <div class="markdown-preview" id="markdown-preview" style="display: none;"></div>
-            <div class="form-actions">
-                <button class="button" id="preview-markdown">Preview</button>
-                <button class="button" id="save-planner">Save</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Periodic Table Container -->
     <div class="periodic-table-container" id="periodic-container" style="display: none;">
-        <h2 class="periodic-title">Periodic Table of Elements</h2>
+        <h2 class="periodic-title" id="custom-image-title">Periodic Table of Elements</h2>
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Periodic_table_(polyatomic).svg/1200px-Periodic_table_(polyatomic).svg.png" 
              alt="Periodic Table" 
-             class="periodic-table-image">
+             class="periodic-table-image"
+             id="custom-image-display">
         <button class="close-periodic" id="close-periodic-btn">&times;</button>
     </div>
 
@@ -926,6 +955,23 @@
                 </label>
             </div>
             
+            <div class="form-group">
+                <label class="form-label" for="planner-notes">Daily Notes</label>
+                <textarea class="form-textarea" id="planner-notes" placeholder="Write your daily notes here..."></textarea>
+            </div>
+            <div class="markdown-preview" id="markdown-preview" style="display: none;"></div>
+            
+            <div class="form-group">
+                <label class="form-label" for="custom-image-title-input">Custom Image Title</label>
+                <input type="text" class="form-input" id="custom-image-title-input" placeholder="Title for your custom image">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="custom-image-upload">Upload Custom Image</label>
+                <input type="file" class="form-input" id="custom-image-upload" accept="image/*">
+                <img id="custom-image-preview" class="custom-image-preview" src="" alt="Custom image preview">
+            </div>
+            
             <div class="import-export">
                 <h3>Data Management</h3>
                 <div class="data-actions">
@@ -933,6 +979,11 @@
                     <button class="button" id="import-data">Import Data</button>
                 </div>
                 <input type="file" id="import-file" style="display: none;" accept=".json">
+            </div>
+            
+            <div class="form-actions">
+                <button class="button" id="preview-markdown">Preview Notes</button>
+                <button class="button" id="save-planner">Save All</button>
             </div>
         </div>
     </div>
@@ -1029,7 +1080,11 @@
             tasks: [],
             events: [],
             darkMode: false,
-            currentEditingTask: null
+            currentEditingTask: null,
+            customImage: {
+                title: "Periodic Table of Elements",
+                url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Periodic_table_(polyatomic).svg/1200px-Periodic_table_(polyatomic).svg.png"
+            }
         };
 
         // DOM Elements
@@ -1039,14 +1094,12 @@
             taskSearch: document.getElementById('task-search'),
             collapseAll: document.getElementById('collapse-all'),
             calendarBtn: document.getElementById('calendar-btn'),
-            plannerBtn: document.getElementById('planner-btn'),
             settingsBtn: document.getElementById('settings-btn'),
             addTaskBtn: document.getElementById('add-task-btn'),
             appTitle: document.querySelector('.app-title'),
             
             // Modals
             calendarModal: document.getElementById('calendar-modal'),
-            plannerModal: document.getElementById('planner-modal'),
             periodicContainer: document.getElementById('periodic-container'),
             settingsModal: document.getElementById('settings-modal'),
             taskSettingsModal: document.getElementById('task-settings-modal'),
@@ -1054,7 +1107,6 @@
             
             // Modal close buttons
             closeCalendar: document.getElementById('close-calendar'),
-            closePlanner: document.getElementById('close-planner'),
             closePeriodic: document.getElementById('close-periodic-btn'),
             closeSettings: document.getElementById('close-settings'),
             closeTaskSettings: document.getElementById('close-task-settings'),
@@ -1080,6 +1132,13 @@
             exportData: document.getElementById('export-data'),
             importData: document.getElementById('import-data'),
             importFile: document.getElementById('import-file'),
+            customImageTitleInput: document.getElementById('custom-image-title-input'),
+            customImageUpload: document.getElementById('custom-image-upload'),
+            customImagePreview: document.getElementById('custom-image-preview'),
+            
+            // Custom image elements
+            customImageDisplay: document.getElementById('custom-image-display'),
+            customImageTitle: document.getElementById('custom-image-title'),
             
             // Task settings elements
             taskName: document.getElementById('task-name'),
@@ -1128,6 +1187,13 @@
                 state.events = parsed.events || [];
                 state.darkMode = parsed.darkMode || false;
                 
+                if (parsed.customImage) {
+                    state.customImage = parsed.customImage;
+                    elements.customImageDisplay.src = state.customImage.url;
+                    elements.customImageTitle.textContent = state.customImage.title;
+                    elements.customImageTitleInput.value = state.customImage.title;
+                }
+                
                 if (state.darkMode) {
                     document.body.classList.add('dark-mode');
                     elements.darkModeToggle.checked = true;
@@ -1151,7 +1217,8 @@
             const stateToSave = {
                 tasks: state.tasks,
                 events: state.events,
-                darkMode: state.darkMode
+                darkMode: state.darkMode,
+                customImage: state.customImage
             };
             localStorage.setItem('focusVerseState', JSON.stringify(stateToSave));
         }
@@ -1172,17 +1239,15 @@
         function setupEventListeners() {
             // Header buttons
             elements.calendarBtn.addEventListener('click', () => toggleModal(elements.calendarModal));
-            elements.plannerBtn.addEventListener('click', () => toggleModal(elements.plannerModal));
             elements.settingsBtn.addEventListener('click', () => toggleModal(elements.settingsModal));
             elements.addTaskBtn.addEventListener('click', addNewTask);
-            elements.appTitle.addEventListener('click', showPeriodicTable);
+            elements.appTitle.addEventListener('click', showCustomImage);
             elements.taskSearch.addEventListener('input', searchTasks);
             elements.collapseAll.addEventListener('click', toggleCollapseAll);
             
             // Modal close buttons
             elements.closeCalendar.addEventListener('click', () => toggleModal(elements.calendarModal));
-            elements.closePlanner.addEventListener('click', () => toggleModal(elements.plannerModal));
-            elements.closePeriodic.addEventListener('click', hidePeriodicTable);
+            elements.closePeriodic.addEventListener('click', hideCustomImage);
             elements.closeSettings.addEventListener('click', () => toggleModal(elements.settingsModal));
             elements.closeTaskSettings.addEventListener('click', () => toggleModal(elements.taskSettingsModal));
             elements.closeTaskNotes.addEventListener('click', () => toggleModal(elements.taskNotesModal));
@@ -1207,6 +1272,8 @@
             elements.exportData.addEventListener('click', exportAppData);
             elements.importData.addEventListener('click', () => elements.importFile.click());
             elements.importFile.addEventListener('change', importAppData);
+            elements.customImageUpload.addEventListener('change', handleCustomImageUpload);
+            elements.customImageTitleInput.addEventListener('input', updateCustomImageTitle);
             
             // Calendar
             elements.saveEvent.addEventListener('click', saveCalendarEvent);
@@ -1231,20 +1298,43 @@
             elements.saveTaskNotes.addEventListener('click', saveTaskNotes);
         }
 
-        // Show periodic table
-        function showPeriodicTable() {
+        // Show custom image
+        function showCustomImage() {
             elements.periodicContainer.style.display = 'flex';
             setTimeout(() => {
                 elements.periodicContainer.style.opacity = '1';
             }, 10);
         }
 
-        // Hide periodic table
-        function hidePeriodicTable() {
+        // Hide custom image
+        function hideCustomImage() {
             elements.periodicContainer.style.opacity = '0';
             setTimeout(() => {
                 elements.periodicContainer.style.display = 'none';
             }, 300);
+        }
+
+        // Handle custom image upload
+        function handleCustomImageUpload() {
+            const file = elements.customImageUpload.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                state.customImage.url = e.target.result;
+                elements.customImageDisplay.src = e.target.result;
+                elements.customImagePreview.src = e.target.result;
+                elements.customImagePreview.style.display = 'block';
+                saveState();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Update custom image title
+        function updateCustomImageTitle() {
+            state.customImage.title = elements.customImageTitleInput.value;
+            elements.customImageTitle.textContent = state.customImage.title;
+            saveState();
         }
 
         // Toggle modal visibility
@@ -1324,7 +1414,7 @@
                 title: 'New Subtask',
                 type: parentType === 'task' ? 'subtask' : 'minitask',
                 priority: parent.priority,
-                category: parent.category,
+                category: parent.category || 'Other',
                 completedItems: 0,
                 logItems: null,
                 deadline: null,
@@ -1499,7 +1589,7 @@
                     <div class="task-title">
                         ${task.title}
                         <span class="priority-${task.priority} priority-tag">${task.priority}</span>
-                        <span class="category-tag">${task.category}</span>
+                        <span class="category-tag">${task.category || 'Other'}</span>
                     </div>
                     <div class="task-controls">
                         ${task.type !== 'minitask' ? `<button class="small-button add-subtask">+ ${task.type === 'task' ? 'Subtask' : 'Mini'}</button>` : ''}
@@ -1805,7 +1895,7 @@
         // Save planner notes
         function savePlannerNotes() {
             localStorage.setItem('focusVersePlannerNotes', elements.plannerNotes.value);
-            toggleModal(elements.plannerModal);
+            toggleModal(elements.settingsModal);
         }
 
         // Generate calendar
@@ -1857,8 +1947,17 @@
                     dayEvents.forEach(event => {
                         const eventElement = document.createElement('div');
                         eventElement.className = 'calendar-event';
-                        eventElement.textContent = event.title;
+                        eventElement.innerHTML = `
+                            <span>${event.title}</span>
+                            <button class="calendar-event-delete" data-id="${event.id}">✕</button>
+                        `;
                         dayCell.appendChild(eventElement);
+                        
+                        const deleteBtn = eventElement.querySelector('.calendar-event-delete');
+                        deleteBtn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            deleteCalendarEvent(event.id);
+                        });
                     });
                 }
                 
@@ -1870,6 +1969,7 @@
             }
         }
 
+        // Open add event modal
         function openAddEventModal(date) {
             elements.eventForm.style.display = 'block';
             elements.eventTitle.value = '';
@@ -1877,6 +1977,7 @@
             elements.calendarModal.querySelector('.modal').scrollTop = 0;
         }
 
+        // Save calendar event
         function saveCalendarEvent() {
             const title = elements.eventTitle.value.trim();
             const date = elements.eventDate.value;
@@ -1899,6 +2000,13 @@
             elements.eventDate.value = '';
             elements.eventForm.style.display = 'none';
             
+            generateCalendar();
+        }
+
+        // Delete calendar event
+        function deleteCalendarEvent(id) {
+            state.events = state.events.filter(event => event.id !== id);
+            saveState();
             generateCalendar();
         }
 
@@ -1929,7 +2037,8 @@
                 state: {
                     tasks: state.tasks,
                     events: state.events,
-                    darkMode: state.darkMode
+                    darkMode: state.darkMode,
+                    customImage: state.customImage
                 },
                 plannerNotes: localStorage.getItem('focusVersePlannerNotes')
             };
@@ -1959,6 +2068,13 @@
                         state.tasks = data.state.tasks || [];
                         state.events = data.state.events || [];
                         state.darkMode = data.state.darkMode || false;
+                        
+                        if (data.state.customImage) {
+                            state.customImage = data.state.customImage;
+                            elements.customImageDisplay.src = state.customImage.url;
+                            elements.customImageTitle.textContent = state.customImage.title;
+                            elements.customImageTitleInput.value = state.customImage.title;
+                        }
                         
                         document.body.classList.toggle('dark-mode', state.darkMode);
                         elements.darkModeToggle.checked = state.darkMode;
