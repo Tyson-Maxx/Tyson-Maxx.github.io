@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FocusVerse</title>
@@ -83,6 +79,26 @@
             display: flex;
             align-items: center;
             gap: 1rem;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-right: 1rem;
+        }
+
+        .search-input {
+            padding: 0.5rem;
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+            min-width: 200px;
+        }
+
+        .dark-mode .search-input {
+            background-color: #334155;
+            color: var(--text-light);
+            border-color: #475569;
         }
 
         .clock {
@@ -173,6 +189,11 @@
         .minitask {
             border-left: 4px solid var(--minitask-border);
             margin-left: 60px;
+        }
+
+        .collapsed .subtask,
+        .collapsed .minitask {
+            display: none;
         }
 
         .task-header {
@@ -283,6 +304,60 @@
         .dark-mode .due-date.normal {
             background-color: #166534;
             color: #bbf7d0;
+        }
+
+        .priority-high {
+            background-color: #fecaca;
+            color: #991b1b;
+        }
+
+        .priority-medium {
+            background-color: #fef08a;
+            color: #854d0e;
+        }
+
+        .priority-low {
+            background-color: #bbf7d0;
+            color: #166534;
+        }
+
+        .dark-mode .priority-high {
+            background-color: #7f1d1d;
+            color: #fecaca;
+        }
+
+        .dark-mode .priority-medium {
+            background-color: #854d0e;
+            color: #fef08a;
+        }
+
+        .dark-mode .priority-low {
+            background-color: #166534;
+            color: #bbf7d0;
+        }
+
+        .priority-tag {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            margin-left: 0.5rem;
+            font-weight: normal;
+        }
+
+        .category-tag {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            margin-left: 0.5rem;
+            background-color: #e2e8f0;
+            color: var(--text-dark);
+        }
+
+        .dark-mode .category-tag {
+            background-color: #334155;
+            color: var(--text-light);
         }
 
         .modal-overlay {
@@ -480,98 +555,6 @@
             margin-top: 1.5rem;
         }
 
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .calendar-header {
-            grid-column: span 7;
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .calendar-day-header {
-            text-align: center;
-            font-weight: 600;
-            padding: 0.5rem;
-        }
-
-        .calendar-day {
-            padding: 0.5rem;
-            text-align: center;
-            border-radius: 5px;
-            background-color: #e2e8f0;
-            cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-            min-height: 60px;
-        }
-
-        .calendar-day:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
-        }
-
-        .dark-mode .calendar-day {
-            background-color: #334155;
-        }
-
-        .calendar-day.today {
-            background-color: #0ea5e9;
-            color: white;
-            font-weight: 600;
-        }
-
-        .calendar-day.has-event::after {
-            content: '';
-            position: absolute;
-            bottom: 5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background-color: #ec4899;
-        }
-
-        .dark-mode .calendar-day.has-event::after {
-            background-color: #f472b6;
-        }
-
-        .calendar-event {
-            font-size: 0.7rem;
-            background-color: #f9a8d4;
-            color: #831843;
-            border-radius: 3px;
-            padding: 0.1rem 0.2rem;
-            margin-top: 0.2rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .dark-mode .calendar-event {
-            background-color: #831843;
-            color: #f9a8d4;
-        }
-
-        .countdown {
-            margin-top: 1.5rem;
-            padding: 1rem;
-            background-color: #e2e8f0;
-            border-radius: 5px;
-            text-align: center;
-        }
-
-        .dark-mode .countdown {
-            background-color: #334155;
-        }
-
         .periodic-table-container {
             position: fixed;
             top: 0;
@@ -588,58 +571,13 @@
             overflow-y: auto;
         }
 
-        .periodic-table {
-            display: grid;
-            grid-template-columns: repeat(18, minmax(50px, 1fr));
-            gap: 0.3rem;
-            width: 100%;
-            max-width: 1200px;
+        .periodic-table-image {
+            max-width: 100%;
+            max-height: 90vh;
+            display: block;
             margin: 0 auto;
-        }
-
-        .element {
-            padding: 0.5rem;
-            border-radius: 5px;
-            background-color: #e2e8f0;
-            text-align: center;
-            font-size: 0.8rem;
-            transition: var(--transition);
-            box-shadow: var(--shadow);
-        }
-
-        .element:hover {
-            transform: scale(1.05);
-            z-index: 1;
-            box-shadow: var(--shadow-md);
-        }
-
-        .dark-mode .element {
-            background-color: #334155;
-        }
-
-        .element.empty {
-            visibility: hidden;
-        }
-
-        .element-symbol {
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin: 0.2rem 0;
-        }
-
-        .element-name {
-            font-size: 0.7rem;
-            margin-bottom: 0.2rem;
-        }
-
-        .element-number {
-            font-size: 0.7rem;
-            opacity: 0.8;
-        }
-
-        .element-mass {
-            font-size: 0.7rem;
-            opacity: 0.8;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
 
         .close-periodic {
@@ -744,16 +682,6 @@
             transform: translateX(26px);
         }
 
-        .import-export {
-            margin-top: 2rem;
-        }
-
-        .data-actions {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
         .no-tasks {
             text-align: center;
             margin-top: 2rem;
@@ -764,8 +692,81 @@
             color: #94a3b8;
         }
 
-        .add-event-btn {
+        /* Import/Export Styles */
+        .import-export {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #cbd5e1;
+        }
+
+        .dark-mode .import-export {
+            border-top-color: #475569;
+        }
+
+        .data-actions {
+            display: flex;
+            gap: 1rem;
             margin-top: 1rem;
+        }
+
+        /* Calendar Styles */
+        .calendar-day {
+            padding: 0.5rem;
+            text-align: center;
+            border-radius: 5px;
+            background-color: #e2e8f0;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            min-height: 60px;
+        }
+
+        .calendar-day:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .dark-mode .calendar-day {
+            background-color: #334155;
+        }
+
+        .calendar-day.today {
+            background-color: #0ea5e9;
+            color: white;
+            font-weight: 600;
+        }
+
+        .calendar-day.has-event::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #ec4899;
+        }
+
+        .dark-mode .calendar-day.has-event::after {
+            background-color: #f472b6;
+        }
+
+        .calendar-event {
+            font-size: 0.7rem;
+            background-color: #f9a8d4;
+            color: #831843;
+            border-radius: 3px;
+            padding: 0.1rem 0.2rem;
+            margin-top: 0.2rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .dark-mode .calendar-event {
+            background-color: #831843;
+            color: #f9a8d4;
         }
 
         .event-form {
@@ -779,35 +780,57 @@
             background-color: #334155;
         }
 
+        .calendar-day-header {
+            font-weight: 600;
+            text-align: center;
+            padding: 0.5rem;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
         @media (max-width: 768px) {
-            .periodic-table {
-                grid-template-columns: repeat(9, minmax(40px, 1fr));
-            }
-            
             .main-content {
                 padding: 1rem;
             }
             
             .app-header {
                 padding: 1rem;
+                flex-wrap: wrap;
             }
             
-            .button {
-                padding: 0.5rem;
+            .header-controls {
+                width: 100%;
+                justify-content: space-between;
+                margin-top: 0.5rem;
+            }
+            
+            .search-container {
+                order: 1;
+                width: 100%;
+                margin: 0.5rem 0;
+            }
+            
+            .search-input {
+                flex-grow: 1;
             }
         }
 
         @media (max-width: 480px) {
-            .periodic-table {
-                grid-template-columns: repeat(5, minmax(30px, 1fr));
-            }
-            
             .header-controls {
                 gap: 0.5rem;
             }
             
             .clock {
                 display: none;
+            }
+            
+            .button {
+                padding: 0.5rem;
             }
         }
     </style>
@@ -817,6 +840,10 @@
         <h1 class="app-title">FocusVerse</h1>
         <div class="header-controls">
             <div class="clock" id="clock">00:00:00</div>
+            <div class="search-container">
+                <input type="text" id="task-search" placeholder="Search tasks..." class="search-input">
+                <button id="collapse-all" class="small-button">Collapse All</button>
+            </div>
             <button class="button" id="calendar-btn">📅</button>
             <button class="button" id="planner-btn">📝</button>
             <button class="button" id="settings-btn">⚙️</button>
@@ -839,13 +866,6 @@
             <div class="calendar-grid" id="calendar-grid">
                 <!-- Calendar days will be generated here -->
             </div>
-            <div class="countdown">
-                <h3>NEET 2026 Countdown</h3>
-                <p id="neet-countdown">May 3, 2026</p>
-            </div>
-            <div class="add-event-btn">
-                <button class="button" id="add-event-btn">Add Event</button>
-            </div>
             <div class="event-form" id="event-form" style="display: none;">
                 <div class="form-group">
                     <label class="form-label" for="event-title">Event Title</label>
@@ -858,6 +878,10 @@
                 <div class="form-actions">
                     <button class="button" id="save-event">Save Event</button>
                 </div>
+            </div>
+            <div class="countdown">
+                <h3>NEET 2026 Countdown</h3>
+                <p id="neet-countdown">May 3, 2026</p>
             </div>
         </div>
     </div>
@@ -882,9 +906,9 @@
     <!-- Periodic Table Container -->
     <div class="periodic-table-container" id="periodic-container" style="display: none;">
         <h2 class="periodic-title">Periodic Table of Elements</h2>
-        <div class="periodic-table" id="periodic-table">
-            <!-- Periodic table elements will be generated here -->
-        </div>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Periodic_table_(polyatomic).svg/1200px-Periodic_table_(polyatomic).svg.png" 
+             alt="Periodic Table" 
+             class="periodic-table-image">
         <button class="close-periodic" id="close-periodic-btn">&times;</button>
     </div>
 
@@ -898,14 +922,6 @@
                 <span>Dark Mode</span>
                 <label class="toggle-switch">
                     <input type="checkbox" id="dark-mode-toggle">
-                    <span class="toggle-slider"></span>
-                </label>
-            </div>
-            
-            <div class="settings-option">
-                <span>Enable Drag & Drop</span>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="drag-drop-toggle">
                     <span class="toggle-slider"></span>
                 </label>
             </div>
@@ -930,6 +946,26 @@
             <div class="form-group">
                 <label class="form-label" for="task-name">Task Name</label>
                 <input type="text" class="form-input" id="task-name">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Priority</label>
+                <select class="form-input" id="task-priority">
+                    <option value="high">High</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="low">Low</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Category</label>
+                <select class="form-input" id="task-category">
+                    <option value="Study">Study</option>
+                    <option value="Work">Work</option>
+                    <option value="Personal">Personal</option>
+                    <option value="Health">Health</option>
+                    <option value="Other" selected>Other</option>
+                </select>
             </div>
             
             <div class="form-group">
@@ -961,6 +997,7 @@
                 <button class="button" id="delete-task">Delete</button>
                 <button class="button" id="move-up-task">Move Up</button>
                 <button class="button" id="move-down-task">Move Down</button>
+                <button class="button" id="duplicate-task">Duplicate</button>
                 <button class="button" id="save-task-settings">Save</button>
             </div>
         </div>
@@ -992,139 +1029,15 @@
             tasks: [],
             events: [],
             darkMode: false,
-            dragDropEnabled: true,
-            currentEditingTask: null,
-            periodicTable: [
-                // Periodic table elements arranged by atomic number
-                { number: 1, symbol: 'H', name: 'Hydrogen', mass: 1.008, row: 1, column: 1 },
-                { number: 2, symbol: 'He', name: 'Helium', mass: 4.0026, row: 1, column: 18 },
-                { number: 3, symbol: 'Li', name: 'Lithium', mass: 6.94, row: 2, column: 1 },
-                { number: 4, symbol: 'Be', name: 'Beryllium', mass: 9.0122, row: 2, column: 2 },
-                { number: 5, symbol: 'B', name: 'Boron', mass: 10.81, row: 2, column: 13 },
-                { number: 6, symbol: 'C', name: 'Carbon', mass: 12.011, row: 2, column: 14 },
-                { number: 7, symbol: 'N', name: 'Nitrogen', mass: 14.007, row: 2, column: 15 },
-                { number: 8, symbol: 'O', name: 'Oxygen', mass: 15.999, row: 2, column: 16 },
-                { number: 9, symbol: 'F', name: 'Fluorine', mass: 18.998, row: 2, column: 17 },
-                { number: 10, symbol: 'Ne', name: 'Neon', mass: 20.180, row: 2, column: 18 },
-                { number: 11, symbol: 'Na', name: 'Sodium', mass: 22.990, row: 3, column: 1 },
-                { number: 12, symbol: 'Mg', name: 'Magnesium', mass: 24.305, row: 3, column: 2 },
-                { number: 13, symbol: 'Al', name: 'Aluminum', mass: 26.982, row: 3, column: 13 },
-                { number: 14, symbol: 'Si', name: 'Silicon', mass: 28.085, row: 3, column: 14 },
-                { number: 15, symbol: 'P', name: 'Phosphorus', mass: 30.974, row: 3, column: 15 },
-                { number: 16, symbol: 'S', name: 'Sulfur', mass: 32.06, row: 3, column: 16 },
-                { number: 17, symbol: 'Cl', name: 'Chlorine', mass: 35.45, row: 3, column: 17 },
-                { number: 18, symbol: 'Ar', name: 'Argon', mass: 39.948, row: 3, column: 18 },
-                { number: 19, symbol: 'K', name: 'Potassium', mass: 39.098, row: 4, column: 1 },
-                { number: 20, symbol: 'Ca', name: 'Calcium', mass: 40.078, row: 4, column: 2 },
-                { number: 21, symbol: 'Sc', name: 'Scandium', mass: 44.956, row: 4, column: 3 },
-                { number: 22, symbol: 'Ti', name: 'Titanium', mass: 47.867, row: 4, column: 4 },
-                { number: 23, symbol: 'V', name: 'Vanadium', mass: 50.942, row: 4, column: 5 },
-                { number: 24, symbol: 'Cr', name: 'Chromium', mass: 51.996, row: 4, column: 6 },
-                { number: 25, symbol: 'Mn', name: 'Manganese', mass: 54.938, row: 4, column: 7 },
-                { number: 26, symbol: 'Fe', name: 'Iron', mass: 55.845, row: 4, column: 8 },
-                { number: 27, symbol: 'Co', name: 'Cobalt', mass: 58.933, row: 4, column: 9 },
-                { number: 28, symbol: 'Ni', name: 'Nickel', mass: 58.693, row: 4, column: 10 },
-                { number: 29, symbol: 'Cu', name: 'Copper', mass: 63.546, row: 4, column: 11 },
-                { number: 30, symbol: 'Zn', name: 'Zinc', mass: 65.38, row: 4, column: 12 },
-                { number: 31, symbol: 'Ga', name: 'Gallium', mass: 69.723, row: 4, column: 13 },
-                { number: 32, symbol: 'Ge', name: 'Germanium', mass: 72.630, row: 4, column: 14 },
-                { number: 33, symbol: 'As', name: 'Arsenic', mass: 74.922, row: 4, column: 15 },
-                { number: 34, symbol: 'Se', name: 'Selenium', mass: 78.971, row: 4, column: 16 },
-                { number: 35, symbol: 'Br', name: 'Bromine', mass: 79.904, row: 4, column: 17 },
-                { number: 36, symbol: 'Kr', name: 'Krypton', mass: 83.798, row: 4, column: 18 },
-                { number: 37, symbol: 'Rb', name: 'Rubidium', mass: 85.468, row: 5, column: 1 },
-                { number: 38, symbol: 'Sr', name: 'Strontium', mass: 87.62, row: 5, column: 2 },
-                { number: 39, symbol: 'Y', name: 'Yttrium', mass: 88.906, row: 5, column: 3 },
-                { number: 40, symbol: 'Zr', name: 'Zirconium', mass: 91.224, row: 5, column: 4 },
-                { number: 41, symbol: 'Nb', name: 'Niobium', mass: 92.906, row: 5, column: 5 },
-                { number: 42, symbol: 'Mo', name: 'Molybdenum', mass: 95.95, row: 5, column: 6 },
-                { number: 43, symbol: 'Tc', name: 'Technetium', mass: 98, row: 5, column: 7 },
-                { number: 44, symbol: 'Ru', name: 'Ruthenium', mass: 101.07, row: 5, column: 8 },
-                { number: 45, symbol: 'Rh', name: 'Rhodium', mass: 102.91, row: 5, column: 9 },
-                { number: 46, symbol: 'Pd', name: 'Palladium', mass: 106.42, row: 5, column: 10 },
-                { number: 47, symbol: 'Ag', name: 'Silver', mass: 107.87, row: 5, column: 11 },
-                { number: 48, symbol: 'Cd', name: 'Cadmium', mass: 112.41, row: 5, column: 12 },
-                { number: 49, symbol: 'In', name: 'Indium', mass: 114.82, row: 5, column: 13 },
-                { number: 50, symbol: 'Sn', name: 'Tin', mass: 118.71, row: 5, column: 14 },
-                { number: 51, symbol: 'Sb', name: 'Antimony', mass: 121.76, row: 5, column: 15 },
-                { number: 52, symbol: 'Te', name: 'Tellurium', mass: 127.60, row: 5, column: 16 },
-                { number: 53, symbol: 'I', name: 'Iodine', mass: 126.90, row: 5, column: 17 },
-                { number: 54, symbol: 'Xe', name: 'Xenon', mass: 131.29, row: 5, column: 18 },
-                { number: 55, symbol: 'Cs', name: 'Cesium', mass: 132.91, row: 6, column: 1 },
-                { number: 56, symbol: 'Ba', name: 'Barium', mass: 137.33, row: 6, column: 2 },
-                // Lanthanides
-                { number: 57, symbol: 'La', name: 'Lanthanum', mass: 138.91, row: 8, column: 3 },
-                { number: 58, symbol: 'Ce', name: 'Cerium', mass: 140.12, row: 8, column: 4 },
-                { number: 59, symbol: 'Pr', name: 'Praseodymium', mass: 140.91, row: 8, column: 5 },
-                { number: 60, symbol: 'Nd', name: 'Neodymium', mass: 144.24, row: 8, column: 6 },
-                { number: 61, symbol: 'Pm', name: 'Promethium', mass: 145, row: 8, column: 7 },
-                { number: 62, symbol: 'Sm', name: 'Samarium', mass: 150.36, row: 8, column: 8 },
-                { number: 63, symbol: 'Eu', name: 'Europium', mass: 151.96, row: 8, column: 9 },
-                { number: 64, symbol: 'Gd', name: 'Gadolinium', mass: 157.25, row: 8, column: 10 },
-                { number: 65, symbol: 'Tb', name: 'Terbium', mass: 158.93, row: 8, column: 11 },
-                { number: 66, symbol: 'Dy', name: 'Dysprosium', mass: 162.50, row: 8, column: 12 },
-                { number: 67, symbol: 'Ho', name: 'Holmium', mass: 164.93, row: 8, column: 13 },
-                { number: 68, symbol: 'Er', name: 'Erbium', mass: 167.26, row: 8, column: 14 },
-                { number: 69, symbol: 'Tm', name: 'Thulium', mass: 168.93, row: 8, column: 15 },
-                { number: 70, symbol: 'Yb', name: 'Ytterbium', mass: 173.05, row: 8, column: 16 },
-                { number: 71, symbol: 'Lu', name: 'Lutetium', mass: 174.97, row: 8, column: 17 },
-                // Back to main table
-                { number: 72, symbol: 'Hf', name: 'Hafnium', mass: 178.49, row: 6, column: 4 },
-                { number: 73, symbol: 'Ta', name: 'Tantalum', mass: 180.95, row: 6, column: 5 },
-                { number: 74, symbol: 'W', name: 'Tungsten', mass: 183.84, row: 6, column: 6 },
-                { number: 75, symbol: 'Re', name: 'Rhenium', mass: 186.21, row: 6, column: 7 },
-                { number: 76, symbol: 'Os', name: 'Osmium', mass: 190.23, row: 6, column: 8 },
-                { number: 77, symbol: 'Ir', name: 'Iridium', mass: 192.22, row: 6, column: 9 },
-                { number: 78, symbol: 'Pt', name: 'Platinum', mass: 195.08, row: 6, column: 10 },
-                { number: 79, symbol: 'Au', name: 'Gold', mass: 196.97, row: 6, column: 11 },
-                { number: 80, symbol: 'Hg', name: 'Mercury', mass: 200.59, row: 6, column: 12 },
-                { number: 81, symbol: 'Tl', name: 'Thallium', mass: 204.38, row: 6, column: 13 },
-                { number: 82, symbol: 'Pb', name: 'Lead', mass: 207.2, row: 6, column: 14 },
-                { number: 83, symbol: 'Bi', name: 'Bismuth', mass: 208.98, row: 6, column: 15 },
-                { number: 84, symbol: 'Po', name: 'Polonium', mass: 209, row: 6, column: 16 },
-                { number: 85, symbol: 'At', name: 'Astatine', mass: 210, row: 6, column: 17 },
-                { number: 86, symbol: 'Rn', name: 'Radon', mass: 222, row: 6, column: 18 },
-                { number: 87, symbol: 'Fr', name: 'Francium', mass: 223, row: 7, column: 1 },
-                { number: 88, symbol: 'Ra', name: 'Radium', mass: 226, row: 7, column: 2 },
-                // Actinides
-                { number: 89, symbol: 'Ac', name: 'Actinium', mass: 227, row: 9, column: 3 },
-                { number: 90, symbol: 'Th', name: 'Thorium', mass: 232.04, row: 9, column: 4 },
-                { number: 91, symbol: 'Pa', name: 'Protactinium', mass: 231.04, row: 9, column: 5 },
-                { number: 92, symbol: 'U', name: 'Uranium', mass: 238.03, row: 9, column: 6 },
-                { number: 93, symbol: 'Np', name: 'Neptunium', mass: 237, row: 9, column: 7 },
-                { number: 94, symbol: 'Pu', name: 'Plutonium', mass: 244, row: 9, column: 8 },
-                { number: 95, symbol: 'Am', name: 'Americium', mass: 243, row: 9, column: 9 },
-                { number: 96, symbol: 'Cm', name: 'Curium', mass: 247, row: 9, column: 10 },
-                { number: 97, symbol: 'Bk', name: 'Berkelium', mass: 247, row: 9, column: 11 },
-                { number: 98, symbol: 'Cf', name: 'Californium', mass: 251, row: 9, column: 12 },
-                { number: 99, symbol: 'Es', name: 'Einsteinium', mass: 252, row: 9, column: 13 },
-                { number: 100, symbol: 'Fm', name: 'Fermium', mass: 257, row: 9, column: 14 },
-                { number: 101, symbol: 'Md', name: 'Mendelevium', mass: 258, row: 9, column: 15 },
-                { number: 102, symbol: 'No', name: 'Nobelium', mass: 259, row: 9, column: 16 },
-                { number: 103, symbol: 'Lr', name: 'Lawrencium', mass: 262, row: 9, column: 17 },
-                // Back to main table
-                { number: 104, symbol: 'Rf', name: 'Rutherfordium', mass: 267, row: 7, column: 4 },
-                { number: 105, symbol: 'Db', name: 'Dubnium', mass: 268, row: 7, column: 5 },
-                { number: 106, symbol: 'Sg', name: 'Seaborgium', mass: 269, row: 7, column: 6 },
-                { number: 107, symbol: 'Bh', name: 'Bohrium', mass: 270, row: 7, column: 7 },
-                { number: 108, symbol: 'Hs', name: 'Hassium', mass: 269, row: 7, column: 8 },
-                { number: 109, symbol: 'Mt', name: 'Meitnerium', mass: 278, row: 7, column: 9 },
-                { number: 110, symbol: 'Ds', name: 'Darmstadtium', mass: 281, row: 7, column: 10 },
-                { number: 111, symbol: 'Rg', name: 'Roentgenium', mass: 282, row: 7, column: 11 },
-                { number: 112, symbol: 'Cn', name: 'Copernicium', mass: 285, row: 7, column: 12 },
-                { number: 113, symbol: 'Nh', name: 'Nihonium', mass: 286, row: 7, column: 13 },
-                { number: 114, symbol: 'Fl', name: 'Flerovium', mass: 289, row: 7, column: 14 },
-                { number: 115, symbol: 'Mc', name: 'Moscovium', mass: 290, row: 7, column: 15 },
-                { number: 116, symbol: 'Lv', name: 'Livermorium', mass: 293, row: 7, column: 16 },
-                { number: 117, symbol: 'Ts', name: 'Tennessine', mass: 294, row: 7, column: 17 },
-                { number: 118, symbol: 'Og', name: 'Oganesson', mass: 294, row: 7, column: 18 }
-            ]
+            currentEditingTask: null
         };
 
         // DOM Elements
         const elements = {
             clock: document.getElementById('clock'),
             taskContainer: document.getElementById('task-container'),
+            taskSearch: document.getElementById('task-search'),
+            collapseAll: document.getElementById('collapse-all'),
             calendarBtn: document.getElementById('calendar-btn'),
             plannerBtn: document.getElementById('planner-btn'),
             settingsBtn: document.getElementById('settings-btn'),
@@ -1151,7 +1064,6 @@
             calendarGrid: document.getElementById('calendar-grid'),
             calendarMonth: document.getElementById('calendar-month'),
             neetCountdown: document.getElementById('neet-countdown'),
-            addEventBtn: document.getElementById('add-event-btn'),
             eventForm: document.getElementById('event-form'),
             eventTitle: document.getElementById('event-title'),
             eventDate: document.getElementById('event-date'),
@@ -1163,18 +1075,16 @@
             previewMarkdown: document.getElementById('preview-markdown'),
             markdownPreview: document.getElementById('markdown-preview'),
             
-            // Periodic table
-            periodicTable: document.getElementById('periodic-table'),
-            
             // Settings elements
             darkModeToggle: document.getElementById('dark-mode-toggle'),
-            dragDropToggle: document.getElementById('drag-drop-toggle'),
             exportData: document.getElementById('export-data'),
             importData: document.getElementById('import-data'),
             importFile: document.getElementById('import-file'),
             
             // Task settings elements
             taskName: document.getElementById('task-name'),
+            taskPriority: document.getElementById('task-priority'),
+            taskCategory: document.getElementById('task-category'),
             taskDeadline: document.getElementById('task-deadline'),
             taskHours: document.getElementById('task-hours'),
             taskMinutes: document.getElementById('task-minutes'),
@@ -1184,6 +1094,7 @@
             deleteTask: document.getElementById('delete-task'),
             moveUpTask: document.getElementById('move-up-task'),
             moveDownTask: document.getElementById('move-down-task'),
+            duplicateTask: document.getElementById('duplicate-task'),
             saveTaskSettings: document.getElementById('save-task-settings'),
             
             // Task notes elements
@@ -1204,13 +1115,8 @@
             setupEventListeners();
             renderTasks();
             checkRepetitiveTasks();
-            
-            // Generate calendar
             generateCalendar();
             updateNeetCountdown();
-            
-            // Generate periodic table
-            generatePeriodicTable();
         }
 
         // Load state from localStorage
@@ -1221,21 +1127,21 @@
                 state.tasks = parsed.tasks || [];
                 state.events = parsed.events || [];
                 state.darkMode = parsed.darkMode || false;
-                state.dragDropEnabled = parsed.dragDropEnabled !== undefined ? parsed.dragDropEnabled : true;
                 
-                // Apply dark mode if enabled
                 if (state.darkMode) {
                     document.body.classList.add('dark-mode');
                     elements.darkModeToggle.checked = true;
                 }
                 
-                // Set drag drop toggle
-                elements.dragDropToggle.checked = state.dragDropEnabled;
-                
-                // Load planner notes
                 const plannerNotes = localStorage.getItem('focusVersePlannerNotes');
                 if (plannerNotes) {
                     elements.plannerNotes.value = plannerNotes;
+                }
+                
+                const isCollapsed = localStorage.getItem('focusVerseCollapsed') === 'true';
+                if (isCollapsed) {
+                    document.body.classList.add('collapsed');
+                    elements.collapseAll.textContent = 'Expand All';
                 }
             }
         }
@@ -1245,8 +1151,7 @@
             const stateToSave = {
                 tasks: state.tasks,
                 events: state.events,
-                darkMode: state.darkMode,
-                dragDropEnabled: state.dragDropEnabled
+                darkMode: state.darkMode
             };
             localStorage.setItem('focusVerseState', JSON.stringify(stateToSave));
         }
@@ -1271,6 +1176,8 @@
             elements.settingsBtn.addEventListener('click', () => toggleModal(elements.settingsModal));
             elements.addTaskBtn.addEventListener('click', addNewTask);
             elements.appTitle.addEventListener('click', showPeriodicTable);
+            elements.taskSearch.addEventListener('input', searchTasks);
+            elements.collapseAll.addEventListener('click', toggleCollapseAll);
             
             // Modal close buttons
             elements.closeCalendar.addEventListener('click', () => toggleModal(elements.calendarModal));
@@ -1279,15 +1186,6 @@
             elements.closeSettings.addEventListener('click', () => toggleModal(elements.settingsModal));
             elements.closeTaskSettings.addEventListener('click', () => toggleModal(elements.taskSettingsModal));
             elements.closeTaskNotes.addEventListener('click', () => toggleModal(elements.taskNotesModal));
-            
-            // Calendar events
-            elements.addEventBtn.addEventListener('click', () => {
-                elements.eventForm.style.display = 'block';
-                const today = new Date();
-                elements.eventDate.value = today.toISOString().split('T')[0];
-            });
-            
-            elements.saveEvent.addEventListener('click', saveCalendarEvent);
             
             // Planner
             elements.savePlanner.addEventListener('click', savePlannerNotes);
@@ -1306,10 +1204,12 @@
             
             // Settings
             elements.darkModeToggle.addEventListener('change', toggleDarkMode);
-            elements.dragDropToggle.addEventListener('change', toggleDragDrop);
             elements.exportData.addEventListener('click', exportAppData);
             elements.importData.addEventListener('click', () => elements.importFile.click());
             elements.importFile.addEventListener('change', importAppData);
+            
+            // Calendar
+            elements.saveEvent.addEventListener('click', saveCalendarEvent);
             
             // Task settings
             elements.taskDeadline.addEventListener('change', () => {
@@ -1325,6 +1225,7 @@
             elements.deleteTask.addEventListener('click', deleteCurrentTask);
             elements.moveUpTask.addEventListener('click', () => moveTask('up'));
             elements.moveDownTask.addEventListener('click', () => moveTask('down'));
+            elements.duplicateTask.addEventListener('click', duplicateCurrentTask);
             elements.saveTaskSettings.addEventListener('click', saveTaskSettings);
             elements.taskNotesBtn.addEventListener('click', openTaskNotes);
             elements.saveTaskNotes.addEventListener('click', saveTaskNotes);
@@ -1361,12 +1262,43 @@
             }
         }
 
+        // Search tasks
+        function searchTasks() {
+            const searchTerm = elements.taskSearch.value.toLowerCase();
+            const tasks = document.querySelectorAll('.task, .subtask, .minitask');
+            
+            tasks.forEach(task => {
+                const title = task.querySelector('.task-title').textContent.toLowerCase();
+                if (title.includes(searchTerm)) {
+                    task.style.display = '';
+                    let parent = task.parentElement;
+                    while (parent && !parent.classList.contains('task-container')) {
+                        if (parent.classList.contains('task') || parent.classList.contains('subtask')) {
+                            parent.style.display = '';
+                        }
+                        parent = parent.parentElement;
+                    }
+                } else {
+                    task.style.display = 'none';
+                }
+            });
+        }
+
+        // Toggle collapse all
+        function toggleCollapseAll() {
+            const wasCollapsed = document.body.classList.toggle('collapsed');
+            elements.collapseAll.textContent = wasCollapsed ? 'Expand All' : 'Collapse All';
+            localStorage.setItem('focusVerseCollapsed', wasCollapsed);
+        }
+
         // Add a new task
         function addNewTask() {
             const newTask = {
                 id: Date.now().toString(),
                 title: 'New Task',
                 type: 'task',
+                priority: 'medium',
+                category: 'Other',
                 completedItems: 0,
                 logItems: null,
                 deadline: null,
@@ -1379,8 +1311,6 @@
             state.tasks.push(newTask);
             saveState();
             renderTasks();
-            
-            // Open settings for the new task
             openTaskSettings(newTask.id);
         }
 
@@ -1393,6 +1323,8 @@
                 id: Date.now().toString(),
                 title: 'New Subtask',
                 type: parentType === 'task' ? 'subtask' : 'minitask',
+                priority: parent.priority,
+                category: parent.category,
                 completedItems: 0,
                 logItems: null,
                 deadline: null,
@@ -1404,7 +1336,6 @@
             
             parent.subtasks.push(newSubtask);
             
-            // Auto-set logItems for parent if it has subtasks
             if (parentType === 'task' && parent.subtasks.length > 0 && !parent.logItems) {
                 parent.logItems = parent.subtasks.length;
             } else if (parentType === 'subtask' && parent.subtasks.length > 0 && !parent.logItems) {
@@ -1413,8 +1344,6 @@
             
             saveState();
             renderTasks();
-            
-            // Open settings for the new subtask
             openTaskSettings(newSubtask.id, parentType === 'task' ? 'subtask' : 'minitask');
         }
 
@@ -1423,7 +1352,6 @@
             if (type === 'task') {
                 return state.tasks.find(task => task.id === id);
             } else {
-                // Search through all tasks and subtasks
                 for (const task of state.tasks) {
                     if (task.id === id) return task;
                     for (const subtask of task.subtasks) {
@@ -1460,7 +1388,6 @@
             
             elements.taskContainer.innerHTML = '';
             
-            // Group tasks by status or other criteria if needed
             const taskGroups = {
                 'Active Tasks': state.tasks.filter(task => {
                     if (task.subtasks && task.subtasks.length > 0) {
@@ -1496,7 +1423,6 @@
                 })
             };
             
-            // Render each group
             for (const [groupName, tasks] of Object.entries(taskGroups)) {
                 if (tasks.length > 0) {
                     const groupElement = document.createElement('div');
@@ -1512,7 +1438,7 @@
             }
         }
 
-        // Render a single task (recursive for subtasks)
+        // Render a single task
         function renderTask(task, index, parentElement) {
             const taskElement = document.createElement('div');
             taskElement.className = task.type;
@@ -1520,20 +1446,16 @@
             taskElement.dataset.type = task.type;
             taskElement.dataset.index = index;
             
-            // Calculate progress based on subtasks if they exist
             let progress = 0;
             let isCompleted = false;
             
             if (task.subtasks && task.subtasks.length > 0) {
-                // For tasks with subtasks, progress is based on completed subtasks
                 const completedSubtasks = task.subtasks.filter(subtask => {
                     if (subtask.subtasks && subtask.subtasks.length > 0) {
-                        // If subtask has minitasks, check if all are completed
                         return subtask.subtasks.every(minitask => 
                             minitask.logItems ? minitask.completedItems >= minitask.logItems : true
                         );
                     } else {
-                        // If subtask has no minitasks, check its own completion
                         return subtask.logItems ? subtask.completedItems >= subtask.logItems : true;
                     }
                 }).length;
@@ -1541,24 +1463,20 @@
                 progress = (completedSubtasks / task.subtasks.length) * 100;
                 isCompleted = completedSubtasks >= task.subtasks.length;
             } else {
-                // For tasks without subtasks, use their own progress
                 progress = task.logItems ? (task.completedItems / task.logItems) * 100 : 0;
                 isCompleted = task.logItems ? task.completedItems >= task.logItems : false;
             }
             
-            // Deadline/timer display
             let timeDisplay = '';
             let dueDateElement = '';
             if (task.deadline) {
                 const deadlineDate = new Date(task.deadline);
                 timeDisplay = `Deadline: ${deadlineDate.toLocaleString()}`;
                 
-                // Calculate days until deadline
                 const today = new Date();
                 const timeDiff = deadlineDate.getTime() - today.getTime();
                 const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
                 
-                // Determine urgency class
                 let urgencyClass = 'normal';
                 if (daysDiff <= 0) {
                     urgencyClass = 'urgent';
@@ -1574,14 +1492,18 @@
                 timeDisplay = `Timer: ${task.timer.hours}h ${task.timer.minutes}m`;
             }
             
-            // Determine if we should show the +1 button
             const showIncrementButton = !task.subtasks || task.subtasks.length === 0;
             
             taskElement.innerHTML = `
                 <div class="task-header">
-                    <div class="task-title">${task.title}</div>
+                    <div class="task-title">
+                        ${task.title}
+                        <span class="priority-${task.priority} priority-tag">${task.priority}</span>
+                        <span class="category-tag">${task.category}</span>
+                    </div>
                     <div class="task-controls">
                         ${task.type !== 'minitask' ? `<button class="small-button add-subtask">+ ${task.type === 'task' ? 'Subtask' : 'Mini'}</button>` : ''}
+                        <button class="small-button duplicate-btn">⎘</button>
                         ${showIncrementButton ? `<button class="small-button increment-btn">+1</button>` : ''}
                         <button class="small-button settings-btn">⚙️</button>
                     </div>
@@ -1610,11 +1532,13 @@
                 elements.taskContainer.appendChild(taskElement);
             }
             
-            // Add event listeners to the buttons
             const addSubtaskBtn = taskElement.querySelector('.add-subtask');
             if (addSubtaskBtn) {
                 addSubtaskBtn.addEventListener('click', () => addSubtask(task.id, task.type));
             }
+            
+            const duplicateBtn = taskElement.querySelector('.duplicate-btn');
+            duplicateBtn.addEventListener('click', () => duplicateTask(task.id, task.type));
             
             const incrementBtn = taskElement.querySelector('.increment-btn');
             if (incrementBtn) {
@@ -1624,14 +1548,12 @@
             const settingsBtn = taskElement.querySelector('.settings-btn');
             settingsBtn.addEventListener('click', () => openTaskSettings(task.id, task.type));
             
-            // Render subtasks if any
             if (task.subtasks && task.subtasks.length > 0) {
                 task.subtasks.forEach((subtask, subIndex) => {
                     renderTask(subtask, subIndex, taskElement);
                 });
             }
             
-            // Add completed class if task is done
             if (isCompleted) {
                 taskElement.classList.add('completed');
             }
@@ -1644,8 +1566,9 @@
             
             state.currentEditingTask = { id, type };
             
-            // Populate the form
             elements.taskName.value = task.title;
+            elements.taskPriority.value = task.priority || 'medium';
+            elements.taskCategory.value = task.category || 'Other';
             elements.taskDeadline.value = task.deadline || '';
             elements.taskHours.value = task.timer?.hours || '';
             elements.taskMinutes.value = task.timer?.minutes || '';
@@ -1668,8 +1591,9 @@
             const task = findTask(id, type);
             if (!task) return;
             
-            // Update task properties
             task.title = elements.taskName.value;
+            task.priority = elements.taskPriority.value;
+            task.category = elements.taskCategory.value;
             
             if (elements.taskDeadline.value) {
                 task.deadline = elements.taskDeadline.value;
@@ -1688,7 +1612,6 @@
             task.logItems = elements.taskLogItems.value ? parseInt(elements.taskLogItems.value) : null;
             task.repetitive = elements.taskRepetitive.checked;
             
-            // Auto-set logItems if not set but has subtasks
             if (!task.logItems && task.subtasks && task.subtasks.length > 0) {
                 task.logItems = task.subtasks.length;
             }
@@ -1705,18 +1628,15 @@
             if (type === 'task') {
                 state.tasks = state.tasks.filter(task => task.id !== id);
             } else {
-                // Find parent and remove from its subtasks
                 for (const task of state.tasks) {
                     if (type === 'subtask') {
                         task.subtasks = task.subtasks.filter(subtask => subtask.id !== id);
-                        // Update logItems if needed
                         if (task.subtasks.length > 0 && task.logItems !== task.subtasks.length) {
                             task.logItems = task.subtasks.length;
                         }
                     } else {
                         for (const subtask of task.subtasks) {
                             subtask.subtasks = subtask.subtasks.filter(minitask => minitask.id !== id);
-                            // Update logItems if needed
                             if (subtask.subtasks.length > 0 && subtask.logItems !== subtask.subtasks.length) {
                                 subtask.logItems = subtask.subtasks.length;
                             }
@@ -1728,6 +1648,49 @@
             saveState();
             renderTasks();
             toggleModal(elements.taskSettingsModal);
+        }
+
+        // Duplicate current task
+        function duplicateCurrentTask() {
+            const { id, type } = state.currentEditingTask;
+            duplicateTask(id, type);
+            toggleModal(elements.taskSettingsModal);
+        }
+
+        // Duplicate task
+        function duplicateTask(id, type) {
+            const original = findTask(id, type);
+            if (!original) return;
+            
+            const copy = JSON.parse(JSON.stringify(original));
+            copy.id = Date.now().toString();
+            copy.title = `Copy of ${original.title}`;
+            
+            if (type === 'task') {
+                const index = state.tasks.findIndex(t => t.id === id);
+                state.tasks.splice(index + 1, 0, copy);
+            } else {
+                for (const task of state.tasks) {
+                    if (type === 'subtask') {
+                        const index = task.subtasks.findIndex(t => t.id === id);
+                        if (index !== -1) {
+                            task.subtasks.splice(index + 1, 0, copy);
+                            break;
+                        }
+                    } else {
+                        for (const subtask of task.subtasks) {
+                            const index = subtask.subtasks.findIndex(t => t.id === id);
+                            if (index !== -1) {
+                                subtask.subtasks.splice(index + 1, 0, copy);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            
+            saveState();
+            renderTasks();
         }
 
         // Move task up or down
@@ -1744,7 +1707,6 @@
                     [state.tasks[index + 1], state.tasks[index]] = [state.tasks[index], state.tasks[index + 1]];
                 }
             } else {
-                // Find parent and move within its subtasks
                 for (const task of state.tasks) {
                     let arrayToModify, index;
                     
@@ -1800,11 +1762,12 @@
             const task = findTask(id, type);
             if (!task || !task.logItems) return;
             
+            const confirmed = confirm(`Are you sure you want to increment progress for "${task.title}"?`);
+            if (!confirmed) return;
+            
             task.completedItems += 1;
             
-            // Check if task is completed
             if (task.completedItems >= task.logItems) {
-                // Only show confetti for tasks (not subtasks or minitasks)
                 if (type === 'task') {
                     showConfetti();
                 }
@@ -1820,10 +1783,8 @@
             const emojis = ['🎉', '✨', '🌟', '💫', '🥳', '🎊', '🏆', '✅'];
             const container = elements.confettiContainer;
             
-            // Clear any existing confetti
             container.innerHTML = '';
             
-            // Create 20 confetti pieces
             for (let i = 0; i < 20; i++) {
                 const confetti = document.createElement('div');
                 confetti.className = 'confetti';
@@ -1836,7 +1797,6 @@
                 container.appendChild(confetti);
             }
             
-            // Remove confetti after animation
             setTimeout(() => {
                 container.innerHTML = '';
             }, 3000);
@@ -1848,7 +1808,75 @@
             toggleModal(elements.plannerModal);
         }
 
-        // Save calendar event
+        // Generate calendar
+        function generateCalendar() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = now.getMonth();
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                              "July", "August", "September", "October", "November", "December"];
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+            
+            elements.calendarMonth.textContent = `${monthNames[month]} ${year}`;
+            
+            elements.calendarGrid.innerHTML = '';
+            
+            dayNames.forEach(day => {
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'calendar-day-header';
+                dayHeader.textContent = day;
+                elements.calendarGrid.appendChild(dayHeader);
+            });
+            
+            for (let i = 0; i < firstDay; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.className = 'calendar-day empty';
+                elements.calendarGrid.appendChild(emptyCell);
+            }
+            
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayCell = document.createElement('div');
+                dayCell.className = 'calendar-day';
+                dayCell.textContent = day;
+                
+                if (day === now.getDate() && month === now.getMonth() && year === now.getFullYear()) {
+                    dayCell.classList.add('today');
+                }
+                
+                const currentDate = new Date(year, month, day).toISOString().split('T')[0];
+                const dayEvents = state.events.filter(event => {
+                    const eventDate = new Date(event.date).toISOString().split('T')[0];
+                    return eventDate === currentDate;
+                });
+                
+                if (dayEvents.length > 0) {
+                    dayCell.classList.add('has-event');
+                    
+                    dayEvents.forEach(event => {
+                        const eventElement = document.createElement('div');
+                        eventElement.className = 'calendar-event';
+                        eventElement.textContent = event.title;
+                        dayCell.appendChild(eventElement);
+                    });
+                }
+                
+                dayCell.addEventListener('click', () => {
+                    openAddEventModal(new Date(year, month, day));
+                });
+                
+                elements.calendarGrid.appendChild(dayCell);
+            }
+        }
+
+        function openAddEventModal(date) {
+            elements.eventForm.style.display = 'block';
+            elements.eventTitle.value = '';
+            elements.eventDate.value = date.toISOString().split('T')[0];
+            elements.calendarModal.querySelector('.modal').scrollTop = 0;
+        }
+
         function saveCalendarEvent() {
             const title = elements.eventTitle.value.trim();
             const date = elements.eventDate.value;
@@ -1867,74 +1895,11 @@
             state.events.push(event);
             saveState();
             
-            // Reset form
             elements.eventTitle.value = '';
             elements.eventDate.value = '';
             elements.eventForm.style.display = 'none';
             
-            // Regenerate calendar
             generateCalendar();
-        }
-
-        // Generate calendar
-        function generateCalendar() {
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = now.getMonth();
-            const monthNames = ["January", "February", "March", "April", "May", "June",
-                              "July", "August", "September", "October", "November", "December"];
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-            
-            // Set month name
-            elements.calendarMonth.textContent = `${monthNames[month]} ${year}`;
-            
-            elements.calendarGrid.innerHTML = '';
-            
-            // Add day headers
-            dayNames.forEach(day => {
-                const dayHeader = document.createElement('div');
-                dayHeader.className = 'calendar-day-header';
-                dayHeader.textContent = day;
-                elements.calendarGrid.appendChild(dayHeader);
-            });
-            
-            // Add empty cells for days before the first day of the month
-            for (let i = 0; i < firstDay; i++) {
-                const emptyCell = document.createElement('div');
-                emptyCell.className = 'calendar-day empty';
-                elements.calendarGrid.appendChild(emptyCell);
-            }
-            
-            // Add cells for each day of the month
-            for (let day = 1; day <= daysInMonth; day++) {
-                const dayCell = document.createElement('div');
-                dayCell.className = 'calendar-day';
-                dayCell.textContent = day;
-                
-                // Highlight today
-                if (day === now.getDate() && month === now.getMonth() && year === now.getFullYear()) {
-                    dayCell.classList.add('today');
-                }
-                
-                // Add events for this day
-                const currentDate = new Date(year, month, day).toISOString().split('T')[0];
-                const dayEvents = state.events.filter(event => event.date === currentDate);
-                
-                if (dayEvents.length > 0) {
-                    dayCell.classList.add('has-event');
-                    
-                    dayEvents.forEach(event => {
-                        const eventElement = document.createElement('div');
-                        eventElement.className = 'calendar-event';
-                        eventElement.textContent = event.title;
-                        dayCell.appendChild(eventElement);
-                    });
-                }
-                
-                elements.calendarGrid.appendChild(dayCell);
-            }
         }
 
         // Update NEET countdown
@@ -1942,7 +1907,6 @@
             const neetDate = new Date('2026-05-03');
             const today = new Date();
             
-            // Adjust for IST (UTC+5:30)
             const istOffset = 5.5 * 60 * 60 * 1000;
             const todayIST = new Date(today.getTime() + istOffset);
             
@@ -1952,44 +1916,11 @@
             elements.neetCountdown.textContent = `${diffDays} days remaining (May 3, 2026)`;
         }
 
-        // Generate periodic table
-        function generatePeriodicTable() {
-            elements.periodicTable.innerHTML = '';
-            
-            // Create a grid of 9 rows x 18 columns
-            for (let row = 1; row <= 9; row++) {
-                for (let col = 1; col <= 18; col++) {
-                    const element = state.periodicTable.find(el => el.row === row && el.column === col);
-                    
-                    const elementDiv = document.createElement('div');
-                    elementDiv.className = element ? 'element' : 'element empty';
-                    
-                    if (element) {
-                        elementDiv.innerHTML = `
-                            <div class="element-number">${element.number}</div>
-                            <div class="element-symbol">${element.symbol}</div>
-                            <div class="element-name">${element.name}</div>
-                            <div class="element-mass">${element.mass}</div>
-                        `;
-                    }
-                    
-                    elements.periodicTable.appendChild(elementDiv);
-                }
-            }
-        }
-
         // Toggle dark mode
         function toggleDarkMode() {
             state.darkMode = elements.darkModeToggle.checked;
             document.body.classList.toggle('dark-mode', state.darkMode);
             saveState();
-        }
-
-        // Toggle drag and drop
-        function toggleDragDrop() {
-            state.dragDropEnabled = elements.dragDropToggle.checked;
-            saveState();
-            // Note: Drag and drop implementation would go here
         }
 
         // Export app data
@@ -1998,8 +1929,7 @@
                 state: {
                     tasks: state.tasks,
                     events: state.events,
-                    darkMode: state.darkMode,
-                    dragDropEnabled: state.dragDropEnabled
+                    darkMode: state.darkMode
                 },
                 plannerNotes: localStorage.getItem('focusVersePlannerNotes')
             };
@@ -2029,14 +1959,9 @@
                         state.tasks = data.state.tasks || [];
                         state.events = data.state.events || [];
                         state.darkMode = data.state.darkMode || false;
-                        state.dragDropEnabled = data.state.dragDropEnabled !== undefined ? data.state.dragDropEnabled : true;
                         
-                        // Apply dark mode
                         document.body.classList.toggle('dark-mode', state.darkMode);
                         elements.darkModeToggle.checked = state.darkMode;
-                        elements.dragDropToggle.checked = state.dragDropEnabled;
-                        
-                        // Save state
                         saveState();
                     }
                     
